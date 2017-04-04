@@ -1,4 +1,4 @@
-package com.allebd.dispatchsystemadmin.ui;
+package com.allebd.dispatchsystemadmin.ui.auth;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import com.allebd.dispatchsystemadmin.DatabaseHelper;
 import com.allebd.dispatchsystemadmin.R;
+import com.allebd.dispatchsystemadmin.ui.request.ManageRequestsActivity;
 
 /**
  * Created by CSISPC on 12/03/2017.
  */
 
 public class AdminRegisterActivity extends AppCompatActivity {
-    DatabaseHelper myDb;
     Context c;
     EditText etreg_adminuser;
     EditText etreg_adminpass;
@@ -34,7 +34,6 @@ public class AdminRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hosp_reg);
-        myDb = new DatabaseHelper(this);
 
         c = this;
         etreg_adminuser = (EditText) findViewById(R.id.reg_adminuser);
@@ -69,7 +68,7 @@ public class AdminRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!etreg_adminuser.getText().toString().isEmpty() && !etreg_adminpass.getText().toString().isEmpty())
                 {
-                    Intent MainActivityIntent = new Intent(AdminRegisterActivity.this,MainActivity.class);
+                    Intent MainActivityIntent = new Intent(AdminRegisterActivity.this,ManageRequestsActivity.class);
                     startActivity(MainActivityIntent);
                 }else{
                     etreg_adminuser.setText("");

@@ -1,4 +1,4 @@
-package com.allebd.dispatchsystemadmin.ui.adapter;
+package com.allebd.dispatchsystemadmin.ui.request.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

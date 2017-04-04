@@ -9,7 +9,9 @@ public class Ambulance {
     private String id;
     private String hospitalId;
     private String driverName;
-    private String name;
+    private String description;
+    private int size;
+    private boolean isAssigned;
 
     public Ambulance() {
     }
@@ -38,11 +40,32 @@ public class Ambulance {
         this.driverName = driverName;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public boolean isAssigned() {
+        return isAssigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        isAssigned = assigned;
+    }
+
+    public String getAssignedStatus(){
+        if (isAssigned)return "Assigned";
+        return "Unassigned";
     }
 }

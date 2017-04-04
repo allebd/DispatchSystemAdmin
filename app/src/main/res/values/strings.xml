@@ -28,8 +28,9 @@
     </string>
     <string name="permission_required_toast">Location permission is required for this app.</string>
 
-
     <string name="about_description">This application is to enhance the capabilities of 911 ambulance dispatches in the timely displacement of ambulance(s) to injury scenes in an efficient manner..</string>
+
+    <string name="about_name">This application is to enhance the capabilities of 911 ambulance dispatches in the timely displacement of ambulance(s) to injury scenes in an efficient manner..</string>
     <string name="about_license">This application is free and open source, source code is licensed under Apache License Version 2.0 and available on GitHub.</string>
     <string name="about_web">For more information visit\nwww.github.org/allebd</string>
     <string name="title_activity_sidebar">sidebar</string>

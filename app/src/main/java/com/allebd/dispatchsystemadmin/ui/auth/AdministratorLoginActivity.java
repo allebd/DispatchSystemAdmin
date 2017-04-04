@@ -1,4 +1,4 @@
-package com.allebd.dispatchsystemadmin.ui;
+package com.allebd.dispatchsystemadmin.ui.auth;
 
 import android.content.Context;
 import android.content.Intent;
