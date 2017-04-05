@@ -12,23 +12,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.allebd.dispatchsystemadmin.DatabaseHelper;
 import com.allebd.dispatchsystemadmin.R;
+import com.allebd.dispatchsystemadmin.data.DataManager;
 import com.allebd.dispatchsystemadmin.ui.request.ManageRequestsActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
+import javax.inject.Inject;
 
 /**
  * Created by CSISPC on 12/03/2017.
  */
 
 public class AdminRegisterActivity extends AppCompatActivity {
+    @Inject
+    public DataManager.Operations dataManager;
     Context c;
-    EditText etreg_adminuser;
-    EditText etreg_adminpass;
-    EditText etreg_adminname;
-    EditText etreg_adminphone;
-    EditText etreg_adminemail;
-    EditText etreg_adminadd;
-    TextView tvSignAdmin;
+    private FirebaseAuth firebaseAuth;
+    private EditText etreg_adminuser;
+    private EditText etreg_adminpass;
+    private EditText etreg_adminname;
+    private EditText etreg_adminphone;
+    private EditText etreg_adminemail;
+    private EditText etreg_adminadd;
+    private TextView tvSignAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

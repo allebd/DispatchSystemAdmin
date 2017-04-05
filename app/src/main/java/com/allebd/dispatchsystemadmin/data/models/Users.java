@@ -1,34 +1,50 @@
 package com.allebd.dispatchsystemadmin.data.models;
 
+import static android.R.attr.id;
+
 /**
  * Created by CSISPC on 10/03/2017.
  */
 
 public class Users {
-    private Long id;
+    private String uid;
     private Double latitude;
     private Double longitude;
     private String username;
     private String password;
-    private String telephone;
-    private String dob;
-    private String gender;
-    private String bloodGroup;
+    private String name;
+    private String address;
+    private String number;
+    private String ambulanceNumber;
 
-    public Users(Long id, Double latitude, Double longitude, String username, String password, String telephone, String dob, String gender, String bloodGroup) {
-        this.id = id;
+    public Users(Double latitude, Double longitude, String username, String password, String name, String address, String number, String ambulanceNumber) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.username = username;
         this.password = password;
-        this.telephone = telephone;
-        this.dob = dob;
-        this.gender = gender;
-        this.bloodGroup = bloodGroup;
+        this.number = number;
+        this.address = address;
+        this.ambulanceNumber = ambulanceNumber;
+        this.name = name;
     }
 
     public Users(){
 
+    }
+
+
+    public void initEmptyUsers(){
+        name = "";
+        number = "";
+        address = "";
+        ambulanceNumber = "";
+    }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Long getId() {
@@ -71,35 +87,35 @@ public class Users {
         this.password = password;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getNumber() {
+        return number;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setNumber(String telephone) {
+        this.number = number;
     }
 
-    public String getDob() {
-        return dob;
+    public String getName() {
+        return name;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGender() {
-        return gender;
+    public String getAddress() {
+        return address;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getBloodGroup() {
-        return bloodGroup;
+    public String getAmbulanceNumber() {
+        return ambulanceNumber;
     }
 
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
+    public void setAmbulanceNumber(String ambulanceNumber) {
+        this.ambulanceNumber = ambulanceNumber;
     }
 }
