@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.allebd.dispatchsystemadmin.R;
 import com.allebd.dispatchsystemadmin.data.DataManager;
 import com.allebd.dispatchsystemadmin.ui.request.ManageRequestsActivity;
-import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
@@ -27,7 +26,6 @@ public class AdminRegisterActivity extends AppCompatActivity {
     @Inject
     public DataManager.Operations dataManager;
     Context c;
-    private FirebaseAuth firebaseAuth;
     private EditText etreg_adminuser;
     private EditText etreg_adminpass;
     private EditText etreg_adminname;
