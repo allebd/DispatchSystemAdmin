@@ -93,5 +93,6 @@ public class ManageRequestsActivity extends AppCompatActivity implements DataMan
         });
 
         AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
