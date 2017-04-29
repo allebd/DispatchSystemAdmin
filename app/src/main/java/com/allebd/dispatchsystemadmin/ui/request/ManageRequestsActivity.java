@@ -1,7 +1,9 @@
 package com.allebd.dispatchsystemadmin.ui.request;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import com.allebd.dispatchsystemadmin.R;
 import com.allebd.dispatchsystemadmin.data.DataManager;
 import com.allebd.dispatchsystemadmin.data.models.RequestObject;
 import com.allebd.dispatchsystemadmin.ui.request.adapter.RequestListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,47 +27,66 @@ public class ManageRequestsActivity extends AppCompatActivity implements DataMan
 
     @Inject
     public DataManager dataManager;
-    private String userid;
     private RecyclerView rv;
+    private ProgressDialog progressDialog;
+    private String userid;
+    private FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user == null) {
+                return;
+            }
+            userid = user.getUid();
+            dataManager.queryForRequests(userid);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_requests);
+
         ((DispatchAdminApp) getApplication()).getAppComponent().inject(this);
 
-        rv = (RecyclerView)findViewById(R.id.request_rv);
-        userid = getIntent().getStringExtra("id");
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading requests");
+        progressDialog.show();
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.addAuthStateListener(listener);
+
+        rv = (RecyclerView) findViewById(R.id.request_rv);
         dataManager.setRequestListener(this);
-        dataManager.queryForRequests(userid);
     }
 
     private void doRest(final ArrayList<RequestObject> requests) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
-        if (requests != null) {
-            if (requests.size() > 0) {
-                RequestListAdapter requestListAdapter = new RequestListAdapter(requests);
-                rv.setAdapter(requestListAdapter);
 
-                requestListAdapter.setOnItemClickListener(new RequestListAdapter.MyClickListener() {
-                    @Override
-                    public void onItemClick(int position, View v) {
+        if (requests == null || requests.size() == 0) return;
 
-                        RequestObject requestObject = requests.get(position);
+        RequestListAdapter requestListAdapter = new RequestListAdapter(requests);
+        rv.setAdapter(requestListAdapter);
 
-                        if (requestObject.getStatus() == 0) {
-                            showRequestInfo(requestObject);
-                        }
-                    }
-                });
+        requestListAdapter.setOnItemClickListener(new RequestListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+
+                RequestObject requestObject = requests.get(position);
+
+                if (requestObject.getStatus() == 0) {
+                    showRequestInfo(requestObject);
+                }
             }
-        }
+        });
     }
 
     @Override
     public void onRequestsLoaded(ArrayList<RequestObject> requests) {
         Collections.reverse(requests);
+        progressDialog.dismiss();
         doRest(requests);
     }
 
@@ -87,7 +110,7 @@ public class ManageRequestsActivity extends AppCompatActivity implements DataMan
         builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                request.setStatus(0);
+                request.setStatus(-1);
                 dataManager.respondToRequest(request);
             }
         });

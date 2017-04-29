@@ -11,9 +11,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by Digz on 04/04/2017.
- */
 @Module
 public class AppModule {
     private final DispatchAdminApp app;

@@ -2,9 +2,7 @@ package com.allebd.dispatchsystemadmin.data.models;
 
 import java.util.Date;
 
-/**
- * Created by Digz on 02/04/2017.
- */
+
 
 public class RequestObject {
 

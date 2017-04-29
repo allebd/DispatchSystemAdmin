@@ -18,11 +18,8 @@ import com.allebd.dispatchsystemadmin.ui.request.ManageRequestsActivity;
 
 import javax.inject.Inject;
 
-/**
- * Created by CSISPC on 12/03/2017.
- */
+public class RegisterActivity extends AppCompatActivity {
 
-public class AdminRegisterActivity extends AppCompatActivity {
     @Inject
     public DataManager.Operations dataManager;
     Context c;
@@ -37,7 +34,7 @@ public class AdminRegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hosp_reg);
+        setContentView(R.layout.activity_register);
 
         c = this;
         etreg_adminuser = (EditText) findViewById(R.id.reg_adminuser);
@@ -72,7 +69,7 @@ public class AdminRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!etreg_adminuser.getText().toString().isEmpty() && !etreg_adminpass.getText().toString().isEmpty())
                 {
-                    Intent MainActivityIntent = new Intent(AdminRegisterActivity.this,ManageRequestsActivity.class);
+                    Intent MainActivityIntent = new Intent(RegisterActivity.this,ManageRequestsActivity.class);
                     startActivity(MainActivityIntent);
                 }else{
                     etreg_adminuser.setText("");
@@ -85,7 +82,7 @@ public class AdminRegisterActivity extends AppCompatActivity {
         tvSignAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent MainActivityIntent = new Intent(AdminRegisterActivity.this,AdministratorLoginActivity.class);
+                Intent MainActivityIntent = new Intent(RegisterActivity.this,LoginActivity.class);
                 startActivity(MainActivityIntent);
             }
         });

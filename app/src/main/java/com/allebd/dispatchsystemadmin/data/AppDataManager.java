@@ -33,7 +33,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void queryForRequests(String hospitalId) {
-        reference.child("requests").child(hospitalId).addValueEventListener(new ValueEventListener() {
+        reference.child("hospitals").child("requests").child(hospitalId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<RequestObject> requests = new ArrayList<>();
@@ -53,7 +53,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void listenForRequests(String hospitalId) {
-        reference.child("requests").child(hospitalId).addChildEventListener(new ChildEventListener() {
+        reference.child("hospitals").child("requests").child(hospitalId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 RequestObject request = dataSnapshot.getValue(RequestObject.class);

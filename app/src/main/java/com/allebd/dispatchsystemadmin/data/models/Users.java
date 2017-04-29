@@ -8,6 +8,7 @@ import static android.R.attr.id;
 
 public class Users {
     private String uid;
+    private int id;
     private Double latitude;
     private Double longitude;
     private String username;
@@ -48,10 +49,10 @@ public class Users {
     }
 
     public Long getId() {
-        return id;
+        return (long) id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
