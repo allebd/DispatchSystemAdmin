@@ -22,7 +22,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public DataManager providesDataManagerOps(){
+    public DataManager.Operations providesDataManagerOps(){
         return new AppDataManager();
     }
 }

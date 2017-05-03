@@ -2,26 +2,36 @@ package com.allebd.dispatchsystemadmin.data;
 
 
 import com.allebd.dispatchsystemadmin.data.models.Ambulance;
+import com.allebd.dispatchsystemadmin.data.models.Hospital;
 import com.allebd.dispatchsystemadmin.data.models.RequestObject;
-import com.allebd.dispatchsystemadmin.data.models.Users;
 
 import java.util.ArrayList;
 
 public interface DataManager {
 
-    void setRequestListener(RequestListener listener);
+    interface Operations {
+        void storeUserInfo(Hospital user, String uid);
 
-    void setAmbulanceListener(AmbulanceListener listener);
+        void queryForUserInfo(String uid);
 
-    void queryForRequests(String hospitalId);
+        void setUserListener(UserListener listener);
 
-    void listenForRequests(String hospitalId);
+        void updateLocation(double[] point, String uid);
 
-    void respondToRequest(RequestObject requestObject);
+        void setRequestListener(RequestListener listener);
 
-    void createAmbulances(Ambulance ambulance);
+        void setAmbulanceListener(AmbulanceListener listener);
 
-    void listAmbulances(String hospitalId);
+        void queryForRequests(String uid);
+
+        void listenForRequests(String uid);
+
+        void respondToRequest(RequestObject requestObject);
+
+        void createAmbulances(Ambulance ambulance);
+
+        void listAmbulances(String uid);
+    }
 
     interface RequestListener {
         void onRequestsLoaded(ArrayList<RequestObject> requests);
@@ -34,18 +44,6 @@ public interface DataManager {
     }
 
     interface UserListener {
-        void onUserInfoLoaded(Users user);
-
-        void onRequestsLoaded(ArrayList<RequestObject> requestObject);
-    }
-
-    interface Operations {
-        void storeUserInfo(Users user, String uid);
-
-        void queryForUserInfo(String userId);
-
-        void queryForRequests(String userId);
-
-        void setUserListener(UserListener listener);
+        void onUserInfoLoaded(Hospital hospital);
     }
 }

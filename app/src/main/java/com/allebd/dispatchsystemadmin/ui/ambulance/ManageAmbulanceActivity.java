@@ -19,7 +19,7 @@ import javax.inject.Inject;
 public class ManageAmbulanceActivity extends AppCompatActivity implements DataManager.AmbulanceListener, View.OnClickListener {
 
     @Inject
-    public DataManager dataManager;
+    public DataManager.Operations dataManager;
     private String userId;
     private RecyclerView rv;
 

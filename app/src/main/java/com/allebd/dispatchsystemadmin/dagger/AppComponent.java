@@ -1,6 +1,7 @@
 package com.allebd.dispatchsystemadmin.dagger;
 
-import com.allebd.dispatchsystemadmin.ui.request.ManageRequestsActivity;
+import com.allebd.dispatchsystemadmin.ui.auth.RegisterActivity;
+import com.allebd.dispatchsystemadmin.ui.request.DashboardActivity;
 
 import javax.inject.Singleton;
 
@@ -12,5 +13,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void inject(ManageRequestsActivity activity);
+    void inject(DashboardActivity activity);
+    void inject(RegisterActivity target);
 }

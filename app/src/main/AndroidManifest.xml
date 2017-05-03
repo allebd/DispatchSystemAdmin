@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.request.ManageRequestsActivity">
+        <activity android:name=".ui.request.DashboardActivity">
         </activity>
+        <activity android:name=".ui.auth.RegisterActivity"/>
         <activity android:name=".ui.ambulance.ManageAmbulanceActivity">
         </activity>
     </application>

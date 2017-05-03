@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.allebd.dispatchsystemadmin.R;
-import com.allebd.dispatchsystemadmin.ui.request.ManageRequestsActivity;
+import com.allebd.dispatchsystemadmin.ui.request.DashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             btnLogin.setEnabled(true);
         } else {
             btnLogin.setEnabled(true);
-            switchActivity(ManageRequestsActivity.class);
+            switchActivity(DashboardActivity.class);
         }
     }
 

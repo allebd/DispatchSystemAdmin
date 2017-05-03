@@ -1,6 +1,7 @@
 package com.allebd.dispatchsystemadmin.data;
 
 import com.allebd.dispatchsystemadmin.data.models.Ambulance;
+import com.allebd.dispatchsystemadmin.data.models.Hospital;
 import com.allebd.dispatchsystemadmin.data.models.RequestObject;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -10,30 +11,66 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class AppDataManager implements DataManager {
+public class AppDataManager implements DataManager.Operations {
 
     private DatabaseReference reference;
-    private RequestListener requestListener;
-    private AmbulanceListener ambulanceListener;
+    private DataManager.RequestListener requestListener;
+    private DataManager.AmbulanceListener ambulanceListener;
+    private DataManager.UserListener userListener;
 
     public AppDataManager() {
         reference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
-    public void setRequestListener(RequestListener listener) {
+    public void storeUserInfo(Hospital hospital, String uid) {
+        reference.child("hospitals").child("details").child(uid).setValue(hospital);
+    }
+
+    @Override
+    public void queryForUserInfo(String uid) {
+        reference.child("hospitals").child("details").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Hospital hospital = dataSnapshot.getValue(Hospital.class);
+                userListener.onUserInfoLoaded(hospital);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void setUserListener(DataManager.UserListener listener) {
+        this.userListener = listener;
+    }
+
+    @Override
+    public void updateLocation(double[] latLng, String uid) {
+        HashMap<String, Double> locationObject = new HashMap<>();
+        locationObject.put("latitude", latLng[0]);
+        locationObject.put("longitude", latLng[1]);
+        reference.child("hospitals").child("location").child("uid").setValue(locationObject);
+    }
+
+    @Override
+    public void setRequestListener(DataManager.RequestListener listener) {
         this.requestListener = listener;
     }
 
     @Override
-    public void setAmbulanceListener(AmbulanceListener listener) {
+    public void setAmbulanceListener(DataManager.AmbulanceListener listener) {
         this.ambulanceListener = listener;
     }
 
     @Override
-    public void queryForRequests(String hospitalId) {
-        reference.child("hospitals").child("requests").child(hospitalId).addValueEventListener(new ValueEventListener() {
+    public void queryForRequests(String uid) {
+        reference.child("hospitals").child("requests").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<RequestObject> requests = new ArrayList<>();
@@ -52,8 +89,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void listenForRequests(String hospitalId) {
-        reference.child("hospitals").child("requests").child(hospitalId).addChildEventListener(new ChildEventListener() {
+    public void listenForRequests(String uid) {
+        reference.child("hospitals").child("requests").child(uid).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 RequestObject request = dataSnapshot.getValue(RequestObject.class);
@@ -96,8 +133,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void listAmbulances(String hospitalId) {
-        reference.child("ambulances").child(hospitalId).addValueEventListener(new ValueEventListener() {
+    public void listAmbulances(String uid) {
+        reference.child("ambulances").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Ambulance> ambulances = new ArrayList<>();
